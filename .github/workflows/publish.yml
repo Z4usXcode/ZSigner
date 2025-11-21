@@ -21,16 +21,17 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Upgrade pip and install build tools
-        run: |
-          python -m pip install --upgrade pip
-          pip install build twine
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install build dependencies
+        run: pip install build twine setuptools wheel
 
       - name: Build the package
-        run: python -m build
+        run: python -m build --sdist --wheel
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.10.1
         with:
-          user: __token__                # Kullanıcı olarak __token__ sabit
-          password: ${{ secrets.PYPI_API_TOKEN }}  # Token Secrets üzerinden alınır
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
