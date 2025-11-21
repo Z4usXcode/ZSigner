@@ -23,24 +23,20 @@ jobs:
 
       - name: Upgrade pip and install build tools
         run: |
-          echo "Upgrading pip..."
-          python -m pip install --upgrade pip || echo "Warning: pip upgrade failed, continuing..."
-          echo "Installing build tools..."
-          pip install --upgrade setuptools wheel build twine || echo "Warning: build tools installation failed, continuing..."
+          python -m pip install --upgrade pip
+          pip install --upgrade setuptools wheel build twine
+        continue-on-error: true
 
       - name: Install project dependencies
         run: |
           if [ -f requirements.txt ]; then
-            echo "Installing project dependencies from requirements.txt..."
-            pip install -r requirements.txt || echo "Warning: Some dependencies failed to install, continuing..."
-          else
-            echo "No requirements.txt found, skipping dependency installation"
+            pip install -r requirements.txt
           fi
+        continue-on-error: true
 
       - name: Build the package
-        run: |
-          echo "Building the package..."
-          python -m build --sdist --wheel || echo "Warning: Build failed, check errors"
+        run: python -m build --sdist --wheel
+        continue-on-error: true
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.10.1
