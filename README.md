@@ -10,4 +10,3 @@ Lokal olarak:
 ```bash
 pip install .
 
-bu kod tg:@Z4usXcode aittir
