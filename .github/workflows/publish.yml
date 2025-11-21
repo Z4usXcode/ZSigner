@@ -23,7 +23,6 @@ jobs:
 
       - name: Upgrade pip and install build tools
         run: |
-          set -e
           echo "Upgrading pip..."
           python -m pip install --upgrade pip || echo "Warning: pip upgrade failed, continuing..."
           echo "Installing build tools..."
@@ -48,4 +47,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
-        continue-on-error: false
